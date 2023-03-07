@@ -8,6 +8,29 @@ package pt1_college_management;
  *
  * @author moraman
  */
-public class ScholarshipStudent {
-    
+public class ScholarshipStudent extends Student {
+
+    private String scholarchipType;
+
+    public ScholarshipStudent() {
+    }
+
+    public ScholarshipStudent(String scholarchipType, String dni, String firstName, String lastNames) {
+        super(dni, firstName, lastNames);
+        this.scholarchipType = scholarchipType;
+    }
+
+    public String getScholarchipType() {
+        return scholarchipType;
+    }
+
+    public void setScholarchipType(String scholarchipType) {
+        this.scholarchipType = scholarchipType;
+    }
+
+    @Override
+    public String showData() {
+        return super.showData() + "\nScholarship Type: " + getScholarchipType();
+    }
+
 }

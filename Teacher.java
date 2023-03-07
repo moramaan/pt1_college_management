@@ -4,10 +4,28 @@
  */
 package pt1_college_management;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author moraman
  */
-public class Teacher {
-    
+public class Teacher extends Member {
+
+    private String startDate;
+    private ArrayList<String> subjectsTaught = new ArrayList<>();
+
+    public Teacher() {
+    }
+
+    public Teacher(String startDate, String dni, String firstName, String lastNames) {
+        super(dni, firstName, lastNames);
+        this.startDate = startDate;
+    }
+
+    @Override
+    public String showData() {
+        return "Dni: " + getDni() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastNames();
+    }
+
 }

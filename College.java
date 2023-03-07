@@ -4,10 +4,29 @@
  */
 package pt1_college_management;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author moraman
  */
 public class College {
-    
+
+    private String name;
+    private ArrayList<Member> members = new ArrayList<>();
+
+    public College() {
+    }
+
+    public College(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
