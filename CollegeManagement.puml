@@ -1,0 +1,53 @@
+@startuml
+skin Rose
+title College Management
+
+class main {
+    +loadData()
+    +menu()
+}
+
+class College {
+    -String name
+    -ArrayList<Member> members
+    +void addMember(Member)
+    +Int searchMember(String ID/DNI)
+    +void removeMember(String ID/DNI)
+    +void showMembers()
+    +void showSubjects()
+}
+abstract class Member {
+    -String DNI
+    -String FirstName
+    -String LastNames
+    {abstract} showData()
+}
+class Teacher {
+    -String startDate
+    -ArrayList<String> subjectsTaught
+    +showData()
+}
+class Student {
+    -ArrayList<String> enrolledSubjects
+    +showData()
+}
+class ScholarshipStudent {
+    -String scholarshipType
+    +showData()
+}
+class PhDStudent {
+    -Teacher manager
+    -String startDate
+    -String agreementType
+    +showData()
+}
+
+College -- Member: Manage >
+Member <|-down- Student: Inheritance
+Member <|-down- Teacher: Inheritance
+Student <|-down- ScholarshipStudent: Inheritance
+Student <|-down- PhDStudent: Inheritance
+
+hide empty fields
+@endumlenduml
+@enduml
