@@ -22,6 +22,25 @@ public class Student extends Member {
     }
 
     @Override
+    public void addSubject(String subject) {
+        enrolledSubjects.add(subject);
+    }
+
+    @Override
+    public boolean searchSubject(String subject) {
+        boolean found = false;
+        int i = 0;
+        while (!found && i < enrolledSubjects.size()) {
+            if (subject.equalsIgnoreCase(enrolledSubjects.get(i))) {
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        return found;
+    }
+
+    @Override
     public String showData() {
         return "Dni: " + getDni() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastNames();
     }

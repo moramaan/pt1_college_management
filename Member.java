@@ -47,5 +47,9 @@ public abstract class Member {
         this.lastNames = lastNames;
     }
 
+    public abstract void addSubject(String subject);
+
+    public abstract boolean searchSubject(String subject);
+
     public abstract String showData();
 }

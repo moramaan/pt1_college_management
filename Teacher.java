@@ -24,6 +24,25 @@ public class Teacher extends Member {
     }
 
     @Override
+    public void addSubject(String subject) {
+        subjectsTaught.add(subject);
+    }
+
+    @Override
+    public boolean searchSubject(String subject) {
+        boolean found = false;
+        int i = 0;
+        while (!found && i < subjectsTaught.size()) {
+            if (subject.equalsIgnoreCase(subjectsTaught.get(i))) {
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        return found;
+    }
+
+    @Override
     public String showData() {
         return "Dni: " + getDni() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastNames();
     }
