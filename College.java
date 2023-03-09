@@ -5,6 +5,7 @@
 package pt1_college_management;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,35 @@ public class College {
         this.name = name;
     }
 
+    public void addSubject(String s) {
+        subjects.add(s);
+    }
+
+    public void setRandomMemberSubjects(Member m) {
+        Random rnd = new Random();
+        String subject;
+        int count = 0;
+        if (m instanceof Student) {
+            m = (Student) m;
+            while (count < 4) {
+                do {
+                    subject = subjects.get(rnd.nextInt(20));
+                } while (m.searchSubject(subject));
+                m.addSubject(subject);
+                count++;
+            }
+        } else {
+            m = (Teacher) m;
+            while (count < 2) {
+                do {
+                    subject = subjects.get(rnd.nextInt(20));
+                } while (m.searchSubject(subject));
+                m.addSubject(subject);
+                count++;
+            }
+        }
+    }
+
     public void addMember(Member m) {
         members.add(m);
     }
@@ -50,6 +80,7 @@ public class College {
         while (!found && i < members.size()) {
             if (id.equalsIgnoreCase(members.get(i).getDni())) {
                 found = true;
+                pos = i;
             } else {
                 i++;
             }
@@ -70,9 +101,9 @@ public class College {
         pos = searchMember(id);
         if (pos != -1) {
             m = members.get(pos);
-            System.out.printf("Do you confirm that you want to remove %s %s?\n", m.getFirstName(), m.getLastNames());
+            System.out.printf("Do you confirm that you want to remove %s %s [Y/N]?\n", m.getFirstName(), m.getLastNames());
             response = scn.next();
-            if (response.equalsIgnoreCase("s")) {
+            if (response.equalsIgnoreCase("y")) {
                 members.remove(pos);
                 System.out.println("Removed!!");
             } else {
@@ -90,6 +121,7 @@ public class College {
         System.out.printf("Showing all Members in %s\n"
                 + "====================================\n", getName());
         for (Member m : members) {
+            System.out.println(m.getClass().getSimpleName());
             System.out.println(m.showData());
             System.out.println("----------------------------");
         }
@@ -102,10 +134,26 @@ public class College {
      * @param memberType String to compare with instance of member in the list
      */
     public void showMembers(String memberType) {
-        System.out.printf("Showing all %s in %s\n", memberType, getName());
+        System.out.printf("Showing all %s" + "s" + " in %s\n"
+                + "====================================\n", memberType, getName());
         for (Member m : members) {
-            if (m.getClass().getSimpleName().equalsIgnoreCase(memberType)) {
-                System.out.println(m.showData());
+            if (memberType.equalsIgnoreCase("Teacher")) {
+                if (m instanceof Teacher) {
+                    System.out.println(m.showData());
+                    System.out.println("----------------------------");
+                }
+            } else {
+                if (memberType.equalsIgnoreCase("Student")) {
+                    if (m instanceof Student) {
+                        System.out.println(m.showData());
+                        System.out.println("----------------------------");
+                    }
+                } else if (memberType.equalsIgnoreCase("PhDStudent")) {
+                    if (m instanceof PhDStudent) {
+                        System.out.println(m.showData());
+                        System.out.println("----------------------------");
+                    }
+                }
             }
         }
         System.out.println();
@@ -119,16 +167,61 @@ public class College {
      */
     public void showMembers(String memberType, String subject) {
         for (Member m : members) {
-            if (m.getClass().getSimpleName().equalsIgnoreCase(memberType)) {
+            /*if (m.getClass().getSimpleName().equalsIgnoreCase(memberType)) {
                 if (m instanceof Teacher) {
                     m = (Teacher) m;
                     if (m.searchSubject(subject)) {
                         System.out.println(m.showData());
+                        //System.out.println(m.getFirstName() + ", " + m.getLastNames());
                     }
                 } else {
+                    if (m instanceof Student) {
+                        m = (Student) m;
+                        if (m.searchSubject(subject)) {
+                            System.out.println(m.showData());
+                        }
+                    } else {
+                        if (m instanceof PhDStudent) {
+                            m = (PhDStudent) m;
+                            if (m.searchSubject(subject)) {
+                                System.out.println(m.showData());
+                            }
+                        } else {
+                            m = (ScholarshipStudent) m;
+                            if (m.searchSubject(subject)) {
+                                System.out.println(m.showData());
+                            }
+                        }
+                    }
+                }
+            }*/
+            if (memberType.equals("Teacher")) {
+                if (m instanceof Teacher) {
+                    m = (Teacher) m;
+                    if (m.searchSubject(subject)) {
+                        System.out.println(m.showData());
+                        //System.out.println(m.getFirstName() + ", " + m.getLastNames());
+                    }
+                }
+            }
+
+            if (memberType.equals("Student")) {
+                if (m instanceof Student) {
                     m = (Student) m;
                     if (m.searchSubject(subject)) {
                         System.out.println(m.showData());
+                    }
+                } else {
+                    if (m instanceof PhDStudent) {
+                        m = (PhDStudent) m;
+                        if (m.searchSubject(subject)) {
+                            System.out.println(m.showData());
+                        }
+                    } else {
+                        m = (ScholarshipStudent) m;
+                        if (m.searchSubject(subject)) {
+                            System.out.println(m.showData());
+                        }
                     }
                 }
             }
@@ -143,10 +236,29 @@ public class College {
     public void showMember(String id) {
         Member m;
         int pos;
+        String instance;
         pos = searchMember(id);
         if (pos != -1) {
             m = members.get(pos);
-            m.showData();
+            instance = m.getClass().getSimpleName();
+            switch (instance) {
+                case "Teacher":
+                    m = (Teacher) m;
+                    System.out.println("Teacher\n" + m.showData());
+                    break;
+                case "Student":
+                    m = (Student) m;
+                    System.out.println("Student\n" + m.showData());
+                    break;
+                case "ScholarshipStudent":
+                    m = (ScholarshipStudent) m;
+                    System.out.println("ScholarshipStudent\n" + m.showData());
+                    break;
+                default:
+                    m = (PhDStudent) m;
+                    System.out.println("PhDStudent\n" + m.showData());
+                    break;
+            }
         } else {
             System.out.println("There's not any Member with this Id in the list.");
         }
