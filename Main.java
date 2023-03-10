@@ -99,11 +99,7 @@ public class Main {
         Student st19 = new Student("34567890V", "Oliver", "Taylor");
         Student st20 = new Student("90123456W", "Sophia", "Garcia Martinez");
 
-        /*
-
-
-         */
-        //Adding subjects to "subjects" college ArrayList
+        //Adding subjects to related ArrayList
         cl.addSubject("Computer Net and Security");
         cl.addSubject("AI and Machine Learning");
         cl.addSubject("Database Systems and Management");
@@ -125,7 +121,7 @@ public class Main {
         cl.addSubject("Parallel Computing and High Performance Computing");
         cl.addSubject("Computer Graphics and Multimedia");
 
-        //Adding all members to "members" college ArrayList
+        //Adding all members to according ArrayList
         cl.addMember(st1);
         cl.addMember(st2);
         cl.addMember(st3);
@@ -157,51 +153,20 @@ public class Main {
         cl.addMember(t9);
         cl.addMember(t10);
 
-        //Setting up all students' subjects
-        cl.assignRandomSubjects(st1, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st2, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st3, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st4, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st5, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st6, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st7, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st8, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st9, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st10, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st11, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st12, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st13, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st14, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st15, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st16, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st17, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st18, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st19, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(st20, cl.getSubjectsAssignControl());
-
-        //Setting up all teachers' subjects 
-        cl.assignRandomSubjects(t1, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t2, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t3, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t4, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t5, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t6, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t7, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t8, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t9, cl.getSubjectsAssignControl());
-        cl.assignRandomSubjects(t10, cl.getSubjectsAssignControl());
+        //Setting up all Members subjects
+        cl.assignRandomSubjects(cl.getSubjectsAssignControl());
+        
         return cl;
     }
 
     /**
-     * Method to display the menu. Asks user what he wants to do and returns
+     * Method to display the menu. Asks user what to do and returns
      * chosen option.
      *
      * @return user choice.
      */
     public static int menu() {
         Scanner scn = new Scanner(System.in);
-        //boolean read = false;
         int userChoice = 0;
         System.out.println("\n        COLLEGE MANAGEMENT\n"
                 + "=====================================\n"
@@ -211,7 +176,7 @@ public class Main {
                 + "4. Show Teachers.\n"
                 + "5. Search Member.\n"
                 + "6. Remove Member.\n"
-                + "7. Show all Subjects with their related Teachers and Students\n"
+                + "7. Show all Subjects and related Members.\n"
                 + "8. Exit.\n");
         System.out.print("Choose an option: ");
 
@@ -229,15 +194,11 @@ public class Main {
         return userChoice;
     }
 
-    /**
-     * Method to ask the user an id
-     * @return id entered by user 
-     */
     public static String askId() {
         Scanner scn = new Scanner(System.in);
         String id;
 
-        System.out.print("Enter the ID of the member: ");
+        System.out.print("Enter member ID: ");
         id = scn.next();
 
         return id;

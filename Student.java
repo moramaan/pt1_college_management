@@ -17,8 +17,8 @@ public class Student extends Member {
     public Student() {
     }
 
-    public Student(String dni, String firstName, String lastNames) {
-        super(dni, firstName, lastNames);
+    public Student(String dni, String firstName, String lastName) {
+        super(dni, firstName, lastName);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Student extends Member {
 
     @Override
     public String showData() {
-        return "Dni: " + getDni() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastNames();
+        return "Dni: " + getId() + "\nFirst Name: " + getFirstName() + "\nLast Name: " + getLastName();
     }
 
 }

@@ -15,8 +15,8 @@ public class ScholarshipStudent extends Student {
     public ScholarshipStudent() {
     }
 
-    public ScholarshipStudent(String scholarchipType, String dni, String firstName, String lastNames) {
-        super(dni, firstName, lastNames);
+    public ScholarshipStudent(String scholarchipType, String id, String firstName, String lastName) {
+        super(id, firstName, lastName);
         this.scholarchipType = scholarchipType;
     }
 

@@ -15,11 +15,11 @@ import java.util.Scanner;
 public class College {
 
     private String name;
-    //List of members that the College has. They can be Teachers or any type of Student.
+    //List of members of the College. (Teachers or any type of Student)
     private ArrayList<Member> members = new ArrayList<>();
-    //List of subjects that the University has available for teaching or enrollment.
+    //List of subjects available for teaching or enrollment.
     private ArrayList<String> subjects = new ArrayList<>();
-    //Array to limit the quantity of assignments that each subjects can have, being teachers or students. Row 1 Teachers, Row 2 Students
+    //Array to limit the quantity of assignments that each subjects can have. (Row 1 Teachers, Row 2 Students)
     private int[][] subjectsAssignControl = new int[2][20];
 
     public College() {
@@ -48,38 +48,41 @@ public class College {
     public void addMember(Member m) {
         members.add(m);
     }
-    
+
     /**
-     * Method for randomly assigning to one Member of the University the subjects available in the College.
-     * @param m instance to which the method assigns the subjects.
-     * @param subjectsAssignControl double array of int that controls the assignment limit for Student(all) and Teacher.
+     * Method to randomly assign subjects.
+     *
+     * @param subjectsAssignControl two-dimension array of int that controls the
+     * assignment limit depending on the type Member.
      */
-    public void assignRandomSubjects(Member m, int[][] subjectsAssignControl) {
+    public void assignRandomSubjects(int[][] subjectsAssignControl) {
         Random rnd = new Random();
         String subject;
         int count, subjectPos;
-        count = 0;
-        if (m instanceof Student) {
-            m = (Student) m;
-            while (count < 4) {
-                do {
-                    subjectPos = rnd.nextInt(20);
-                } while (subjectsAssignControl[1][subjectPos] == 4);
-                subject = subjects.get(subjectPos);
-                m.addSubject(subject);
-                subjectsAssignControl[1][subjectPos] += 1;
-                count++;
-            }
-        } else {
-            m = (Teacher) m;
-            while (count < 2) {
-                do {
-                    subjectPos = rnd.nextInt(20);
-                } while (subjectsAssignControl[0][subjectPos] != 0);
-                subject = subjects.get(subjectPos);
-                m.addSubject(subject);
-                subjectsAssignControl[0][subjectPos] = 1;
-                count++;
+        for (Member m : members) {
+            count = 0;
+            if (m instanceof Student) {
+                m = (Student) m;
+                while (count < 4) {
+                    do {
+                        subjectPos = rnd.nextInt(20);
+                    } while (subjectsAssignControl[1][subjectPos] == 4);
+                    subject = subjects.get(subjectPos);
+                    m.addSubject(subject);
+                    subjectsAssignControl[1][subjectPos] += 1;
+                    count++;
+                }
+            } else {
+                m = (Teacher) m;
+                while (count < 2) {
+                    do {
+                        subjectPos = rnd.nextInt(20);
+                    } while (subjectsAssignControl[0][subjectPos] != 0);
+                    subject = subjects.get(subjectPos);
+                    m.addSubject(subject);
+                    subjectsAssignControl[0][subjectPos] = 1;
+                    count++;
+                }
             }
         }
     }
@@ -87,7 +90,7 @@ public class College {
     /**
      * Method to search a specific Member of the list by its ID.
      *
-     * @param id ID of the member we want to find.
+     * @param id ID of the member that we are looking for.
      * @return if member is found, its position in ArrayList, else -1.
      */
     public int searchMember(String id) {
@@ -96,7 +99,7 @@ public class College {
         i = 0;
         pos = -1;
         while (!found && i < members.size()) {
-            if (id.equalsIgnoreCase(members.get(i).getDni())) {
+            if (id.equalsIgnoreCase(members.get(i).getId())) {
                 found = true;
                 pos = i;
             } else {
@@ -107,7 +110,7 @@ public class College {
     }
 
     /**
-     * Method to remove a Member of the list searching by its ID.
+     * Method to remove a member from the list by searching for its ID.
      *
      * @param id ID of the member we want to remove.
      */
@@ -119,7 +122,7 @@ public class College {
         pos = searchMember(id);
         if (pos != -1) {
             m = members.get(pos);
-            System.out.printf("Do you confirm that you want to remove %s %s [Y/N]?\n", m.getFirstName(), m.getLastNames());
+            System.out.printf("Do you confirm that you want to remove %s %s [Y/N]?\n", m.getFirstName(), m.getLastName());
             response = scn.next();
             if (response.equalsIgnoreCase("y")) {
                 members.remove(pos);
@@ -128,7 +131,7 @@ public class College {
                 System.out.println("Not removed!!");
             }
         } else {
-            System.out.println("There's not any Member with this Id in the list.");
+            System.out.println("There's no Member with this Id in the list.");
         }
     }
 
@@ -142,7 +145,6 @@ public class College {
             System.out.println(m.getClass().getSimpleName());
             System.out.println(m.showData());
             System.out.println();
-//            System.out.println("----------------------------");
         }
         System.out.println();
     }
@@ -154,26 +156,23 @@ public class College {
      */
     public void showMembers(String memberType) {
         System.out.printf("Showing all %s" + "s" + " in %s\n"
-                + "====================================\n", memberType, getName());
+                + "================================\n", memberType, getName());
         for (Member m : members) {
             if (memberType.equalsIgnoreCase("Teacher")) {
                 if (m instanceof Teacher) {
                     System.out.println(m.showData());
                     System.out.println();
-//                    System.out.println("----------------------------");
                 }
             } else {
                 if (memberType.equalsIgnoreCase("Student")) {
                     if (m instanceof Student) {
                         System.out.println(m.showData());
                         System.out.println();
-//                        System.out.println("----------------------------");
                     }
                 } else if (memberType.equalsIgnoreCase("PhDStudent")) {
                     if (m instanceof PhDStudent) {
                         System.out.println(m.showData());
                         System.out.println();
-//                        System.out.println("----------------------------");
                     }
                 }
             }
@@ -221,7 +220,7 @@ public class College {
     }
 
     /**
-     * Method to show a member searching by its ID.
+     * Method to show a member by searching its ID.
      *
      * @param id ID of the member we want to display.
      */
@@ -247,7 +246,7 @@ public class College {
                     break;
             }
         } else {
-            System.out.println("There's not any Member with this Id in the list.");
+            System.out.println("There's no Member with this Id in the list.");
         }
     }
 

@@ -17,8 +17,8 @@ public class PhDStudent extends Student {
     public PhDStudent() {
     }
 
-    public PhDStudent(Teacher manager, String startDate, String agreementType, String dni, String firstName, String lastNames) {
-        super(dni, firstName, lastNames);
+    public PhDStudent(Teacher manager, String startDate, String agreementType, String id, String firstName, String lastName) {
+        super(id, firstName, lastName);
         this.manager = manager;
         this.startDate = startDate;
         this.agreementType = agreementType;
@@ -51,7 +51,7 @@ public class PhDStudent extends Student {
     @Override
     public String showData() {
         return super.showData() + "\nTeacher: " + manager.getFirstName()
-                + " " + manager.getLastNames() + "\nStart Date: " + getStartDate() + "\nAgreement Type: " + getAgreementType();
+                + ", " + manager.getLastName() + "\nStart Date: " + getStartDate() + "\nAgreement Type: " + getAgreementType();
     }
 
 }

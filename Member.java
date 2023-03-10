@@ -10,25 +10,25 @@ package pt1_college_management;
  */
 public abstract class Member {
 
-    protected String dni;
+    protected String id;
     protected String firstName;
-    protected String lastNames;
+    protected String lastName;
 
     public Member() {
     }
 
-    public Member(String dni, String firstName, String lastNames) {
-        this.dni = dni;
+    public Member(String id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
-        this.lastNames = lastNames;
+        this.lastName = lastName;
     }
 
-    public String getDni() {
-        return dni;
+    public String getId() {
+        return id;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -39,12 +39,12 @@ public abstract class Member {
         this.firstName = firstName;
     }
 
-    public String getLastNames() {
-        return lastNames;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNames(String lastNames) {
-        this.lastNames = lastNames;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public abstract void addSubject(String subject);

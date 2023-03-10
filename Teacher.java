@@ -18,8 +18,8 @@ public class Teacher extends Member {
     public Teacher() {
     }
 
-    public Teacher(String startDate, String dni, String firstName, String lastNames) {
-        super(dni, firstName, lastNames);
+    public Teacher(String startDate, String id, String firstName, String lastName) {
+        super(id, firstName, lastName);
         this.startDate = startDate;
     }
 
@@ -44,7 +44,7 @@ public class Teacher extends Member {
 
     @Override
     public String showData() {
-        return "Dni: " + getDni() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastNames();
+        return "Id: " + getId() + "\nFirst Name: " + getFirstName() + "\nLast Names: " + getLastName();
     }
 
 }
