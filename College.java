@@ -123,7 +123,8 @@ public class College {
         for (Member m : members) {
             System.out.println(m.getClass().getSimpleName());
             System.out.println(m.showData());
-            System.out.println("----------------------------");
+            System.out.println();
+//            System.out.println("----------------------------");
         }
         System.out.println();
     }
@@ -140,18 +141,21 @@ public class College {
             if (memberType.equalsIgnoreCase("Teacher")) {
                 if (m instanceof Teacher) {
                     System.out.println(m.showData());
-                    System.out.println("----------------------------");
+                    System.out.println();
+//                    System.out.println("----------------------------");
                 }
             } else {
                 if (memberType.equalsIgnoreCase("Student")) {
                     if (m instanceof Student) {
                         System.out.println(m.showData());
-                        System.out.println("----------------------------");
+                        System.out.println();
+//                        System.out.println("----------------------------");
                     }
                 } else if (memberType.equalsIgnoreCase("PhDStudent")) {
                     if (m instanceof PhDStudent) {
                         System.out.println(m.showData());
-                        System.out.println("----------------------------");
+                        System.out.println();
+//                        System.out.println("----------------------------");
                     }
                 }
             }
@@ -167,60 +171,30 @@ public class College {
      */
     public void showMembers(String memberType, String subject) {
         for (Member m : members) {
-            /*if (m.getClass().getSimpleName().equalsIgnoreCase(memberType)) {
-                if (m instanceof Teacher) {
-                    m = (Teacher) m;
-                    if (m.searchSubject(subject)) {
-                        System.out.println(m.showData());
-                        //System.out.println(m.getFirstName() + ", " + m.getLastNames());
-                    }
-                } else {
-                    if (m instanceof Student) {
-                        m = (Student) m;
-                        if (m.searchSubject(subject)) {
-                            System.out.println(m.showData());
-                        }
-                    } else {
-                        if (m instanceof PhDStudent) {
-                            m = (PhDStudent) m;
-                            if (m.searchSubject(subject)) {
-                                System.out.println(m.showData());
-                            }
-                        } else {
-                            m = (ScholarshipStudent) m;
-                            if (m.searchSubject(subject)) {
-                                System.out.println(m.showData());
-                            }
-                        }
-                    }
-                }
-            }*/
             if (memberType.equals("Teacher")) {
                 if (m instanceof Teacher) {
-                    m = (Teacher) m;
                     if (m.searchSubject(subject)) {
                         System.out.println(m.showData());
-                        //System.out.println(m.getFirstName() + ", " + m.getLastNames());
+                        System.out.println();
                     }
                 }
-            }
-
-            if (memberType.equals("Student")) {
+            } else {
                 if (m instanceof Student) {
-                    m = (Student) m;
                     if (m.searchSubject(subject)) {
                         System.out.println(m.showData());
+                        System.out.println();
                     }
                 } else {
                     if (m instanceof PhDStudent) {
-                        m = (PhDStudent) m;
                         if (m.searchSubject(subject)) {
                             System.out.println(m.showData());
+                            System.out.println();
                         }
-                    } else {
-                        m = (ScholarshipStudent) m;
+                    }
+                    if (m instanceof ScholarshipStudent) {
                         if (m.searchSubject(subject)) {
                             System.out.println(m.showData());
+                            System.out.println();
                         }
                     }
                 }
@@ -243,19 +217,14 @@ public class College {
             instance = m.getClass().getSimpleName();
             switch (instance) {
                 case "Teacher":
-                    m = (Teacher) m;
                     System.out.println("Teacher\n" + m.showData());
-                    break;
                 case "Student":
-                    m = (Student) m;
                     System.out.println("Student\n" + m.showData());
                     break;
                 case "ScholarshipStudent":
-                    m = (ScholarshipStudent) m;
                     System.out.println("ScholarshipStudent\n" + m.showData());
                     break;
                 default:
-                    m = (PhDStudent) m;
                     System.out.println("PhDStudent\n" + m.showData());
                     break;
             }
@@ -265,17 +234,18 @@ public class College {
     }
 
     /**
-     * Method to show all subjects taught at the University.
+     * Method to show all subjects taught at the University. It also displays
+     * the related members for each one.
      */
     public void showSubjects() {
         for (String sub : subjects) {
-            System.out.println(sub + ":\n============\n");
+            System.out.println("\n" + sub + ":\n" + "=".repeat(sub.length() + 1));
             System.out.println("Teachers {");
             showMembers("Teacher", sub);
             System.out.println("}");
 
-            System.out.println("Students {");
-            showMembers("Students", sub);
+            System.out.println("\nStudents {");
+            showMembers("Student", sub);
             System.out.println("}");
         }
     }
