@@ -15,8 +15,12 @@ import java.util.Scanner;
 public class College {
 
     private String name;
-    private ArrayList<Member> members = new ArrayList<>(); //List of members that the College has. They can be Teachers or any type of Student.
-    private ArrayList<String> subjects = new ArrayList<>(); //List of subjects that the University has available for teaching or enrollment.
+    //List of members that the College has. They can be Teachers or any type of Student.
+    private ArrayList<Member> members = new ArrayList<>();
+    //List of subjects that the University has available for teaching or enrollment.
+    private ArrayList<String> subjects = new ArrayList<>();
+    //Array to limit the quantity of assignments that each subjects can have, being teachers or students. Row 1 Teachers, Row 2 Students
+    private int[][] subjectsAssignControl = new int[2][20];
 
     public College() {
     }
@@ -29,6 +33,10 @@ public class College {
         return name;
     }
 
+    public int[][] getSubjectsAssignControl() {
+        return subjectsAssignControl;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -37,33 +45,43 @@ public class College {
         subjects.add(s);
     }
 
-    public void setRandomMemberSubjects(Member m) {
+    public void addMember(Member m) {
+        members.add(m);
+    }
+    
+    /**
+     * Method for randomly assigning to one Member of the University the subjects available in the College.
+     * @param m instance to which the method assigns the subjects.
+     * @param subjectsAssignControl double array of int that controls the assignment limit for Student(all) and Teacher.
+     */
+    public void assignRandomSubjects(Member m, int[][] subjectsAssignControl) {
         Random rnd = new Random();
         String subject;
-        int count = 0;
+        int count, subjectPos;
+        count = 0;
         if (m instanceof Student) {
             m = (Student) m;
             while (count < 4) {
                 do {
-                    subject = subjects.get(rnd.nextInt(20));
-                } while (m.searchSubject(subject));
+                    subjectPos = rnd.nextInt(20);
+                } while (subjectsAssignControl[1][subjectPos] == 4);
+                subject = subjects.get(subjectPos);
                 m.addSubject(subject);
+                subjectsAssignControl[1][subjectPos] += 1;
                 count++;
             }
         } else {
             m = (Teacher) m;
             while (count < 2) {
                 do {
-                    subject = subjects.get(rnd.nextInt(20));
-                } while (m.searchSubject(subject));
+                    subjectPos = rnd.nextInt(20);
+                } while (subjectsAssignControl[0][subjectPos] != 0);
+                subject = subjects.get(subjectPos);
                 m.addSubject(subject);
+                subjectsAssignControl[0][subjectPos] = 1;
                 count++;
             }
         }
-    }
-
-    public void addMember(Member m) {
-        members.add(m);
     }
 
     /**
